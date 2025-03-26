@@ -1,0 +1,64 @@
+import tkinter as tk
+import math
+from datetime import datetime
+
+class ClockApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Часы в овале")
+
+        self.canvas = tk.Canvas(root, width=600, height=400, bg='white')
+        self.canvas.pack()
+
+        self.setup_ui()
+        self.update_clock()
+
+def setup_ui(self):
+    d = {1: 'I', 13: 'XXI';
+
+    a = int(input());
+    print(f'{a}: {d[a]}');
+
+
+    
+    # Нарисуем овал
+    self.canvas.create_oval(150, 75, 450, 375, width=3);
+
+    # Цифры на циферблате
+    for i in range(1, 13):
+        angle = math.radians(-i * 30 + 90);
+    x = 300 + 110 * math.cos(angle);
+    y = 225 - 110 * math.sin(angle);
+    self.canvas.create_text(x, y, text=str(i), font=('Arial', 14));
+
+    # Создадим стрелки часов, минут и секунд
+    self.hands = [
+    self.canvas.create_line(300, 225, 300, 225, width=4),;  # часовая
+    self.canvas.create_line(300, 225, 300, 225, width=3, fill='blue'),  # минутная
+    self.canvas.create_line(300, 225, 300, 225, width=2, fill='red') ;  # секундная
+
+    self.canvas.create_oval(295, 220, 305, 230, fill='black')  # центральная точка
+
+def update_clock(self):
+    now = datetime.now()
+    hour, minute, second = now.hour % 12, now.minute, now.second
+
+    # Рассчитаем углы для каждой стрелки
+    hour_angle = math.radians(-((hour % 12) * 30 + minute / 2) + 90)
+    minute_angle = math.radians(-minute * 6 + 90)
+    second_angle = math.radians(-second * 6 + 90)
+
+    # Длина стрелок
+    lengths = [85, 115, 125]
+
+    # Обновляем координаты стрелок
+    for i, (angle, length) in enumerate(zip([hour_angle, minute_angle, second_angle], lengths)):
+        self.canvas.coords(
+            self.hands[i],
+            300, 225,
+            300 + length * math.cos(angle),
+            225 - length * math.sin(angle)
+        )
+
+    # Повторяем обновление каждые 1000 мс (1 секунда)
+    self.root.after(1000, self.update_clock)
